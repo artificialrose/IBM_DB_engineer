@@ -1,0 +1,60 @@
+
+// mongosh -u root -p Esu2OTLNkmvTWTS3f7eCAGNd --authenticationDatabase admin local --host mongo
+
+
+
+// curl -O https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkillsNetwork-DB0151EN-edX/labs/FinalProject/movies.json
+
+// use entertainment 
+// db.createCollection("movies")
+
+// mongoimport -u root -p Esu2OTLNkmvTWTS3f7eCAGNd --authenticationDatabase admin -d entertainment -c movies --host mongo movies.json
+
+
+
+// Group movies by their release year.
+// Calculate the total count of movies for each year
+// Sort the years in descending order of movie count
+// Limit the output to 1 document (year) which has the highest movie count.
+
+db.movies.aggregate([
+    { "$group": { "_id": "$year", "moviecount": { "$sum": 1 } } },
+    { $sort: { "moviecount": -1 } },
+    { $limit: 1 }
+])
+
+
+// find the count of movies released after the year 1999
+
+db.movies.countDocuments(
+  {year: {$gt: 1999}}
+)
+
+
+// average votes for movies released in 2007
+
+db.movies.aggregate([
+  { $match:{year: 2007} },
+{
+    $group:{
+        _id:"$year",
+        averageVotes:{"$avg":"$Votes"}
+        }
+}
+])
+
+
+// 
+mongoexport -u root -p Esu2OTLNkmvTWTS3f7eCAGNd --authenticationDatabase admin -d entertainment -c movies -f "_id,title,year,rating,director" --type=csv -o partial_data.csv --host mongo
+
+
+
+
+
+
+
+
+
+
+
+
