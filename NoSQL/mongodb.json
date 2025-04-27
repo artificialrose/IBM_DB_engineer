@@ -5,8 +5,8 @@
 
 // curl -O https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMSkillsNetwork-DB0151EN-edX/labs/FinalProject/movies.json
 
-// use entertainment 
-// db.createCollection("movies")
+use entertainment 
+db.createCollection("movies")
 
 // mongoimport -u root -p Esu2OTLNkmvTWTS3f7eCAGNd --authenticationDatabase admin -d entertainment -c movies --host mongo movies.json
 
